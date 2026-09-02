@@ -1,0 +1,6 @@
+{
+  "name": "CYNGENT",
+  "description": "Building intelligent technology.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
