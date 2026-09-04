@@ -8,33 +8,33 @@ export function Products() {
 
   return (
     <PageTransition>
-      <div className="pt-40 pb-20 max-w-7xl mx-auto px-6">
-        <div className="mb-20">
-          <h1 className="text-4xl md:text-5xl font-display font-semibold mb-6">Products</h1>
-          <p className="text-lg text-secondary max-w-2xl leading-relaxed">
+      <div className="pt-40 pb-32 max-w-7xl mx-auto px-6">
+        <div className="mb-32">
+          <h1 className="text-7xl md:text-9xl font-display font-bold mb-8 tracking-tighter uppercase text-primary">Products</h1>
+          <p className="text-2xl md:text-3xl font-medium text-secondary max-w-3xl leading-snug">
             Explore the software and experiences we're building.
           </p>
         </div>
 
-        <div className="mb-24">
+        <div className="mb-40">
           {publishedProducts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               {publishedProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
           ) : (
-            <div className="py-24 border border-border border-dashed rounded-sm flex flex-col items-center justify-center text-center">
-              <p className="text-lg font-medium text-primary mb-2">Nothing published yet.</p>
-              <p className="text-secondary">CYNGENT is building.</p>
+            <div className="py-32 border-4 border-border border-dashed rounded-sm flex flex-col items-center justify-center text-center bg-surface">
+              <p className="text-3xl font-bold text-primary mb-4">Nothing published yet.</p>
+              <p className="text-xl font-bold text-secondary uppercase tracking-widest">CYNGENT is building.</p>
             </div>
           )}
         </div>
 
         {models.length > 0 && (
-          <div className="border-t border-border pt-16">
-            <h2 className="text-2xl font-display font-semibold mb-8">CYNGENT Models</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="border-t-4 border-primary pt-24">
+            <h2 className="text-5xl md:text-7xl font-display font-bold mb-16 tracking-tighter uppercase">CYNGENT Models</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               {models.map((model) => (
                 <ProductCard key={model.id} product={model} />
               ))}

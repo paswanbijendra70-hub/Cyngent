@@ -4,8 +4,8 @@
   "description": "Building intelligent technology.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0B0B0A",
-  "theme_color": "#0B0B0A",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FF5000",
   "icons": [
     {
       "src": "/icon.svg",

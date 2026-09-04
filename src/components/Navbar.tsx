@@ -19,8 +19,8 @@ export function Navbar() {
           {/* Miniature logo representation */}
           <div className="w-5 h-5 grid grid-cols-2 gap-[2px]">
             <div className="bg-accent rounded-[1px]" />
-            <div className="border border-secondary/30 rounded-[1px]" />
-            <div className="border border-secondary/30 rounded-[1px]" />
+            <div className="border border-primary/20 rounded-[1px]" />
+            <div className="border border-primary/20 rounded-[1px]" />
             <div className="bg-primary rounded-[1px]" />
           </div>
           CYNGENT
@@ -35,15 +35,15 @@ export function Navbar() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-sm transition-colors duration-200 relative ${
-                    isActive ? 'text-primary' : 'text-secondary hover:text-primary'
+                  className={`text-sm font-semibold transition-colors duration-200 relative ${
+                    isActive ? 'text-accent' : 'text-primary hover:text-accent'
                   }`}
                 >
                   {link.name}
                   {isActive && (
                     <motion.div
                       layoutId="nav-indicator"
-                      className="absolute -bottom-2 left-0 right-0 h-[2px] bg-primary rounded-full"
+                      className="absolute -bottom-2 left-0 right-0 h-[2px] bg-accent rounded-full"
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -53,7 +53,7 @@ export function Navbar() {
           </div>
           <Link
             to="/products"
-            className="px-5 py-2 text-sm bg-primary text-background font-medium rounded-sm hover:bg-white transition-colors duration-200"
+            className="px-6 py-2.5 text-sm bg-accent text-white font-bold tracking-wide rounded-sm hover:bg-primary transition-colors duration-200"
           >
             Explore
           </Link>
@@ -61,7 +61,7 @@ export function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden p-2 -mr-2 text-secondary hover:text-primary transition-colors"
+          className="md:hidden p-2 -mr-2 text-primary hover:text-accent transition-colors"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
         >
@@ -75,14 +75,14 @@ export function Navbar() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="md:hidden bg-background border-b border-border px-6 py-6 flex flex-col gap-6"
+          className="md:hidden bg-background border-b border-border px-6 py-6 flex flex-col gap-6 shadow-2xl"
         >
           {links.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`text-base font-medium ${
-                location.pathname === link.path ? 'text-primary' : 'text-secondary'
+              className={`text-lg font-bold ${
+                location.pathname === link.path ? 'text-accent' : 'text-primary'
               }`}
               onClick={() => setIsOpen(false)}
             >
@@ -92,7 +92,7 @@ export function Navbar() {
           <Link
             to="/products"
             onClick={() => setIsOpen(false)}
-            className="w-full py-3 text-center text-sm bg-primary text-background font-medium rounded-sm"
+            className="w-full py-4 text-center text-base bg-accent text-white font-bold rounded-sm"
           >
             Explore Products
           </Link>

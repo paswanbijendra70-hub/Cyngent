@@ -76,8 +76,8 @@ export function CyngentMark({ className = '' }: { className?: string }) {
           style={{ z: 0 }}
         >
           <div className="bg-accent rounded-[2px]" />
-          <div className="border border-secondary/30 rounded-[2px]" />
-          <div className="border border-secondary/30 rounded-[2px]" />
+          <div className="border border-primary/20 rounded-[2px]" />
+          <div className="border border-primary/20 rounded-[2px]" />
           <div className="bg-primary rounded-[2px]" />
         </motion.div>
         
@@ -86,10 +86,10 @@ export function CyngentMark({ className = '' }: { className?: string }) {
           className="absolute inset-0 grid grid-cols-2 gap-[6px] pointer-events-none"
           style={{ z: 30, x: moveX, y: moveY }}
         >
-          <div className="border border-accent/60 rounded-[2px]" />
+          <div className="border-2 border-accent/80 rounded-[2px]" />
           <div className="bg-transparent" />
           <div className="bg-transparent" />
-          <div className="border border-primary/40 rounded-[2px]" />
+          <div className="border-2 border-primary/80 rounded-[2px]" />
         </motion.div>
       </motion.div>
     </div>

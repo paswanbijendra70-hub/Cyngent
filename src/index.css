@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0B0B0A;
-  --color-surface: #121210;
-  --color-surface-hover: #1A1A17;
-  --color-primary: #F5F1E8;
-  --color-secondary: #A7A39A;
-  --color-accent: #FF6A00;
-  --color-accent-hover: #E65F00;
-  --color-accent-yellow: #FFC247;
-  --color-border: rgba(255, 255, 255, 0.10);
-  --color-border-hover: rgba(255, 255, 255, 0.20);
+  --color-background: #FFFFFF;
+  --color-surface: #F8F8F8;
+  --color-surface-hover: #F0F0F0;
+  --color-primary: #0A0A0A;
+  --color-secondary: #666666;
+  --color-accent: #FF5000;
+  --color-accent-hover: #E64800;
+  --color-accent-yellow: #FFB300;
+  --color-border: #E5E5E5;
+  --color-border-hover: #CCCCCC;
   
   --font-display: 'Sora', sans-serif;
   --font-body: 'Manrope', sans-serif;
@@ -26,10 +26,10 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 ::selection {
-  background-color: rgba(255, 106, 0, 0.2);
-  color: var(--color-primary);
+  background-color: var(--color-accent);
+  color: #FFFFFF;
 }
