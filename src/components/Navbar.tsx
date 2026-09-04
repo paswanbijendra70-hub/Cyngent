@@ -1,27 +1,46 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useTheme } from './ThemeProvider';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const toggleTheme = () => {
+    if (theme === 'light') setTheme('dark');
+    else if (theme === 'dark') setTheme('system');
+    else setTheme('light');
+  };
 
   const links = [
+    { name: 'Research', path: '/research' },
     { name: 'Products', path: '/products' },
-    { name: 'About', path: '/about' },
+    { name: 'Developers', path: '/developers' },
+    { name: 'Company', path: '/company' },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Link to="/" className="text-xl font-display font-semibold tracking-wide flex items-center gap-3" onClick={() => setIsOpen(false)}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-background/80 backdrop-blur-xl border-b border-border shadow-sm' : 'bg-transparent border-b border-transparent'}`}>
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link to="/" className="text-xl font-display font-semibold tracking-tight flex items-center gap-3 text-primary hover:text-accent transition-colors" onClick={() => setIsOpen(false)}>
           {/* Miniature logo representation */}
           <div className="w-5 h-5 grid grid-cols-2 gap-[2px]">
-            <div className="bg-accent rounded-[1px]" />
-            <div className="border border-primary/20 rounded-[1px]" />
-            <div className="border border-primary/20 rounded-[1px]" />
-            <div className="bg-primary rounded-[1px]" />
+            <div className="bg-accent rounded-sm" />
+            <div className="border border-accent/40 rounded-sm" />
+            <div className="border border-accent/40 rounded-sm" />
+            <div className="bg-primary rounded-sm" />
           </div>
           CYNGENT
         </Link>
@@ -35,15 +54,15 @@ export function Navbar() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-sm font-semibold transition-colors duration-200 relative ${
-                    isActive ? 'text-accent' : 'text-primary hover:text-accent'
+                  className={`text-sm font-medium transition-colors duration-200 relative px-1 py-1 ${
+                    isActive ? 'text-primary' : 'text-secondary hover:text-primary'
                   }`}
                 >
                   {link.name}
                   {isActive && (
                     <motion.div
                       layoutId="nav-indicator"
-                      className="absolute -bottom-2 left-0 right-0 h-[2px] bg-accent rounded-full"
+                      className="absolute -bottom-[18px] left-0 right-0 h-[2px] bg-accent rounded-full"
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -51,22 +70,41 @@ export function Navbar() {
               );
             })}
           </div>
-          <Link
-            to="/products"
-            className="px-6 py-2.5 text-sm bg-accent text-white font-bold tracking-wide rounded-sm hover:bg-primary transition-colors duration-200"
-          >
-            Explore
-          </Link>
+          
+          <div className="flex items-center gap-4 border-l border-border pl-6">
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-secondary hover:text-primary hover:bg-surface rounded-full transition-all duration-300"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
+            <Link
+              to="/contact"
+              className="px-4 py-2 text-sm bg-primary text-background font-medium rounded-full hover:bg-accent hover:text-white transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-[1px]"
+            >
+              Contact
+            </Link>
+          </div>
         </div>
 
         {/* Mobile Toggle */}
-        <button
-          className="md:hidden p-2 -mr-2 text-primary hover:text-accent transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle Menu"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="p-2 text-secondary hover:text-primary transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
+          </button>
+          <button
+            className="p-2 text-primary hover:text-accent transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Menu"
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Nav */}
@@ -75,14 +113,14 @@ export function Navbar() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="md:hidden bg-background border-b border-border px-6 py-6 flex flex-col gap-6 shadow-2xl"
+          className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border px-6 py-6 flex flex-col gap-6 shadow-2xl"
         >
           {links.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`text-lg font-bold ${
-                location.pathname === link.path ? 'text-accent' : 'text-primary'
+              className={`text-lg font-medium ${
+                location.pathname === link.path ? 'text-accent' : 'text-secondary'
               }`}
               onClick={() => setIsOpen(false)}
             >
@@ -90,11 +128,11 @@ export function Navbar() {
             </Link>
           ))}
           <Link
-            to="/products"
+            to="/contact"
             onClick={() => setIsOpen(false)}
-            className="w-full py-4 text-center text-base bg-accent text-white font-bold rounded-sm"
+            className="w-full py-3 mt-2 text-center text-base bg-primary text-background font-medium rounded-xl"
           >
-            Explore Products
+            Contact CYNGENT
           </Link>
         </motion.div>
       )}

@@ -1,46 +1,44 @@
-import { products } from '../data/products';
-import { ProductCard } from '../components/ProductCard';
+import { Helmet } from 'react-helmet-async';
 import { PageTransition } from '../components/PageTransition';
 
 export function Products() {
-  const publishedProducts = products.filter(p => p.category === 'Application');
-  const models = products.filter(p => p.category === 'AI Model');
-
   return (
     <PageTransition>
-      <div className="pt-40 pb-32 max-w-7xl mx-auto px-6">
-        <div className="mb-32">
-          <h1 className="text-7xl md:text-9xl font-display font-bold mb-8 tracking-tighter uppercase text-primary">Products</h1>
-          <p className="text-2xl md:text-3xl font-medium text-secondary max-w-3xl leading-snug">
-            Explore the software and experiences we're building.
+      <Helmet>
+        <title>Products - CYNGENT</title>
+      </Helmet>
+      <div className="pt-32 pb-32 max-w-7xl mx-auto px-6">
+        <div className="mb-24 pt-16">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-8 tracking-tight text-primary leading-[1.05]">
+            Products
+          </h1>
+          <p className="text-xl md:text-2xl font-medium text-secondary max-w-2xl leading-relaxed">
+            The software, models, and interfaces we are building.
           </p>
         </div>
 
-        <div className="mb-40">
-          {publishedProducts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              {publishedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <div className="py-32 border-4 border-border border-dashed rounded-sm flex flex-col items-center justify-center text-center bg-surface">
-              <p className="text-3xl font-bold text-primary mb-4">Nothing published yet.</p>
-              <p className="text-xl font-bold text-secondary uppercase tracking-widest">CYNGENT is building.</p>
-            </div>
-          )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <div className="bg-surface rounded-3xl p-8 md:p-10 border border-border/30 hover:shadow-sm hover:-translate-y-1 transition-all duration-300">
+            <h3 className="text-3xl font-bold mb-4">CYNGENT Intelligence</h3>
+            <p className="text-secondary font-medium leading-relaxed mb-10">Core reasoning systems and autonomous intelligent agents.</p>
+            <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-widest">Experimental</span>
+          </div>
+
+          <div className="bg-surface rounded-3xl p-8 md:p-10 border border-border/30 hover:shadow-sm hover:-translate-y-1 transition-all duration-300">
+            <h3 className="text-3xl font-bold mb-4">CYNGENT API</h3>
+            <p className="text-secondary font-medium leading-relaxed mb-10">High-performance programmatic access to our models.</p>
+            <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-background border border-border text-secondary uppercase tracking-widest">In Development</span>
+          </div>
+
+          <div className="bg-surface rounded-3xl p-8 md:p-10 border border-border/30 hover:shadow-sm hover:-translate-y-1 transition-all duration-300">
+            <h3 className="text-3xl font-bold mb-4">CYNGENT Applications</h3>
+            <p className="text-secondary font-medium leading-relaxed mb-10">First-party interfaces designed for human interaction.</p>
+            <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-background border border-border text-secondary uppercase tracking-widest">Coming Soon</span>
+          </div>
+
         </div>
 
-        {models.length > 0 && (
-          <div className="border-t-4 border-primary pt-24">
-            <h2 className="text-5xl md:text-7xl font-display font-bold mb-16 tracking-tighter uppercase">CYNGENT Models</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              {models.map((model) => (
-                <ProductCard key={model.id} product={model} />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </PageTransition>
   );

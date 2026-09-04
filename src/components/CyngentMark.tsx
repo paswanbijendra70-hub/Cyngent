@@ -45,8 +45,8 @@ export function CyngentMark({ className = '' }: { className?: string }) {
     return (
       <div className={`w-16 h-16 grid grid-cols-2 gap-[6px] opacity-90 ${className}`}>
         <div className="bg-accent rounded-[2px]" />
-        <div className="border border-secondary/30 rounded-[2px]" />
-        <div className="border border-secondary/30 rounded-[2px]" />
+        <div className="border border-primary/20 rounded-[2px]" />
+        <div className="border border-primary/20 rounded-[2px]" />
         <div className="bg-primary rounded-[2px]" />
       </div>
     );
@@ -75,10 +75,10 @@ export function CyngentMark({ className = '' }: { className?: string }) {
           className="absolute inset-0 grid grid-cols-2 gap-[6px] opacity-90"
           style={{ z: 0 }}
         >
-          <div className="bg-accent rounded-[2px]" />
-          <div className="border border-primary/20 rounded-[2px]" />
-          <div className="border border-primary/20 rounded-[2px]" />
-          <div className="bg-primary rounded-[2px]" />
+          <div className="bg-accent rounded-sm shadow-sm" />
+          <div className="border border-primary/10 bg-surface/50 backdrop-blur-sm rounded-sm" />
+          <div className="border border-primary/10 bg-surface/50 backdrop-blur-sm rounded-sm" />
+          <div className="bg-primary rounded-sm shadow-sm" />
         </motion.div>
         
         {/* Floating Accent Layer */}
@@ -86,10 +86,10 @@ export function CyngentMark({ className = '' }: { className?: string }) {
           className="absolute inset-0 grid grid-cols-2 gap-[6px] pointer-events-none"
           style={{ z: 30, x: moveX, y: moveY }}
         >
-          <div className="border-2 border-accent/80 rounded-[2px]" />
+          <div className="border border-accent/80 rounded-sm shadow-[0_4px_12px_rgba(234,88,12,0.2)]" />
           <div className="bg-transparent" />
           <div className="bg-transparent" />
-          <div className="border-2 border-primary/80 rounded-[2px]" />
+          <div className="border border-primary/60 rounded-sm shadow-[0_4px_12px_rgba(0,0,0,0.1)]" />
         </motion.div>
       </motion.div>
     </div>

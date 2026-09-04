@@ -1,104 +1,130 @@
 import { Link } from 'react-router-dom';
 import { CyngentMark } from '../components/CyngentMark';
-import { products } from '../data/products';
 import { ArrowRight } from 'lucide-react';
 import { PageTransition } from '../components/PageTransition';
+import { Helmet } from 'react-helmet-async';
 
 export function Home() {
-  const featuredProduct = products.find(p => p.featured);
-
   return (
     <PageTransition>
-      <div className="pt-32 pb-20 overflow-hidden">
+      <Helmet>
+        <title>CYNGENT - Building intelligent technology</title>
+      </Helmet>
+      <div className="pt-24 pb-20 overflow-hidden">
+        
         {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-6 mb-40 flex flex-col items-start relative z-10">
-          <div className="mb-16">
-            <CyngentMark className="w-32 h-32 md:w-40 md:h-40" />
-          </div>
-          
-          <h1 className="text-7xl md:text-9xl lg:text-[11rem] font-display font-bold mb-8 max-w-[100vw] leading-[0.9] tracking-tighter uppercase">
-            Building<br />
-            <span className="text-accent">Intelligent</span><br />
-            Technology.
+        <section className="max-w-7xl mx-auto px-6 mb-32 flex flex-col items-start relative z-10 pt-16">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-10 max-w-[100vw] leading-[1.05] tracking-tight">
+            Building intelligent technology<br className="hidden lg:block"/> for what comes next.
           </h1>
           
-          <p className="text-2xl md:text-3xl font-medium text-secondary max-w-3xl mb-16 leading-snug">
-            CYNGENT is an independent technology company building intelligent systems, software, and new digital experiences.
-          </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-end">
+            <div className="lg:col-span-6">
+              <p className="text-xl md:text-2xl font-medium text-secondary max-w-xl mb-12 leading-relaxed">
+                CYNGENT is a technology and research company exploring intelligent systems, software, and new approaches to computing.
+              </p>
 
-          <div className="flex flex-wrap items-center gap-6">
-            <Link 
-              to="/products"
-              className="px-10 py-5 bg-accent text-white font-bold text-lg uppercase tracking-widest rounded-sm hover:bg-primary transition-colors hover:shadow-xl"
-            >
-              Explore Products
-            </Link>
-            <Link 
-              to="/about"
-              className="px-10 py-5 border-2 border-primary text-primary font-bold text-lg uppercase tracking-widest rounded-sm hover:bg-primary hover:text-white transition-colors"
-            >
-              About CYNGENT
-            </Link>
-          </div>
-        </section>
-
-        {/* Featured Product */}
-        <section className="max-w-7xl mx-auto px-6 mb-40">
-          <div className="border-t-4 border-primary pt-16">
-            <h2 className="text-lg font-black uppercase tracking-widest text-accent mb-16">Featured Platform</h2>
-            
-            {featuredProduct ? (
-              <div className="flex flex-col xl:flex-row gap-16 xl:gap-24 items-start">
-                <div className="flex-1">
-                  <h3 className="text-6xl md:text-8xl font-display font-bold mb-8 tracking-tighter uppercase">{featuredProduct.name}</h3>
-                  <p className="text-2xl font-medium text-secondary mb-12 max-w-2xl leading-snug">
-                    A conversational AI application developed as part of the CYNGENT ecosystem.
-                  </p>
-                  {featuredProduct.status === 'Available' && featuredProduct.url ? (
-                    <a 
-                      href={featuredProduct.url}
-                      className="inline-flex items-center gap-4 text-3xl font-bold text-primary hover:text-accent transition-colors group uppercase tracking-tight"
-                    >
-                      Open App 
-                      <ArrowRight size={40} className="transition-transform duration-300 group-hover:translate-x-4" />
-                    </a>
-                  ) : (
-                    <span className="text-secondary text-2xl font-bold uppercase tracking-tight">In development</span>
-                  )}
-                </div>
-                
-                {/* Abstract visual for the featured product */}
-                <div className="w-full xl:w-1/2 aspect-square md:aspect-video xl:aspect-square bg-white border-2 border-border hover:border-accent rounded-sm flex items-center justify-center p-8 relative overflow-hidden group shadow-2xl transition-colors duration-500">
-                   {/* Decorative abstract elements */}
-                   <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--color-primary)_2px,_transparent_2px)] [background-size:48px_48px] group-hover:opacity-20 transition-opacity duration-700"></div>
-                   
-                   <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                   <div className="relative z-10 w-48 h-48 border-4 border-primary rounded-full flex items-center justify-center group-hover:scale-110 group-hover:border-accent transition-all duration-700 ease-out bg-white shadow-xl">
-                      <div className="w-24 h-24 bg-accent rounded-full group-hover:scale-50 transition-transform duration-700 ease-out delay-75"></div>
-                   </div>
-                </div>
+              <div className="flex flex-wrap items-center gap-4">
+                <Link 
+                  to="/products"
+                  className="px-8 py-4 bg-primary text-background font-medium text-base rounded-full hover:bg-accent hover:text-white transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+                >
+                  Explore CYNGENT
+                </Link>
+                <Link 
+                  to="/research"
+                  className="px-8 py-4 bg-surface text-primary font-medium text-base rounded-full hover:bg-border transition-all duration-300 shadow-sm"
+                >
+                  Research
+                </Link>
               </div>
-            ) : (
-              <p className="text-primary text-3xl font-bold">Products are coming soon.</p>
-            )}
-          </div>
-        </section>
-
-        {/* What's Next */}
-        <section className="max-w-7xl mx-auto px-6">
-          <div className="border-t-4 border-primary pt-16 bg-surface p-12 md:p-24 rounded-sm">
-            <h2 className="text-lg font-black uppercase tracking-widest text-accent mb-16">What's Next</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-              {['AI systems', 'Developer technology', 'Research', 'New products'].map((item) => (
-                <div key={item} className="border-l-4 border-primary pl-8 py-2">
-                  <h4 className="font-bold text-3xl mb-4 tracking-tight">{item}</h4>
-                  <p className="text-lg font-bold text-secondary uppercase tracking-widest">Exploring</p>
-                </div>
-              ))}
+            </div>
+            <div className="lg:col-span-6 flex justify-end">
+              <CyngentMark className="w-40 h-40 md:w-56 md:h-56 opacity-90" />
             </div>
           </div>
         </section>
+
+        {/* Featured Section */}
+        <section className="max-w-7xl mx-auto px-6 mb-32">
+          <div className="bg-surface rounded-3xl p-10 md:p-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 tracking-tight leading-tight">
+                  Technology should expand what people can do.
+                </h2>
+                <p className="text-xl text-secondary font-medium leading-relaxed max-w-lg mb-10">
+                  We are exploring the boundaries of computational capability, creating systems that augment human ingenuity, rather than replace it.
+                </p>
+                <Link to="/company" className="inline-flex items-center gap-2 text-primary font-bold text-lg hover:text-accent transition-colors group bg-background px-6 py-3 rounded-full shadow-sm hover:shadow-md">
+                  Learn about our mission
+                  <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+              <div className="aspect-[4/3] bg-background rounded-2xl relative overflow-hidden flex items-center justify-center shadow-sm border border-border/50">
+                 <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] bg-[radial-gradient(circle_at_center,_var(--color-primary)_1.5px,_transparent_1.5px)] [background-size:24px_24px]"></div>
+                 <div className="w-32 h-32 border border-primary/10 rounded-full flex items-center justify-center">
+                    <div className="w-16 h-16 border border-accent/30 bg-surface rounded-full flex items-center justify-center shadow-inner">
+                       <div className="w-4 h-4 bg-accent rounded-full shadow-md"></div>
+                    </div>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* What we explore / Research */}
+        <section className="max-w-7xl mx-auto px-6 mb-32">
+          <h3 className="text-sm font-semibold uppercase tracking-widest text-secondary mb-12 px-2">What we explore</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-surface rounded-2xl p-8 hover:bg-surface-hover transition-colors duration-300">
+              <h4 className="text-2xl font-bold mb-3 tracking-tight">Intelligence</h4>
+              <p className="text-secondary font-medium leading-relaxed mb-8">Developing new models and paradigms for machine intelligence.</p>
+              <Link to="/research" className="inline-flex items-center text-sm font-bold text-primary hover:text-accent transition-colors">
+                View Research <ArrowRight size={16} className="ml-2" />
+              </Link>
+            </div>
+            <div className="bg-surface rounded-2xl p-8 hover:bg-surface-hover transition-colors duration-300">
+              <h4 className="text-2xl font-bold mb-3 tracking-tight">Software</h4>
+              <p className="text-secondary font-medium leading-relaxed mb-8">Building robust, scalable applications that integrate intelligent capabilities.</p>
+              <Link to="/products" className="inline-flex items-center text-sm font-bold text-primary hover:text-accent transition-colors">
+                View Products <ArrowRight size={16} className="ml-2" />
+              </Link>
+            </div>
+            <div className="bg-surface rounded-2xl p-8 hover:bg-surface-hover transition-colors duration-300">
+              <h4 className="text-2xl font-bold mb-3 tracking-tight">Ecosystem</h4>
+              <p className="text-secondary font-medium leading-relaxed mb-8">Providing developers with the infrastructure to build the next generation of tools.</p>
+              <Link to="/developers" className="inline-flex items-center text-sm font-bold text-primary hover:text-accent transition-colors">
+                View Documentation <ArrowRight size={16} className="ml-2" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Featured Research (Publication Style) */}
+        <section className="max-w-7xl mx-auto px-6 mb-32">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 px-2">
+            <h3 className="text-3xl md:text-4xl font-display font-bold tracking-tight">Featured Research</h3>
+            <Link to="/research" className="text-primary font-medium hover:text-accent transition-colors inline-flex items-center gap-2">View all publications <ArrowRight size={16}/></Link>
+          </div>
+          
+          <div className="bg-surface rounded-3xl p-8 md:p-12 transition-all duration-300 hover:shadow-sm border border-border/30">
+            <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-start group cursor-pointer">
+              <div className="w-full md:w-48 shrink-0">
+                <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-bold uppercase tracking-widest rounded-full mb-3">Update</span>
+                <p className="text-sm text-secondary font-medium">Sep 03, 2026</p>
+              </div>
+              <div className="flex-1">
+                <h4 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">Research publications are coming soon</h4>
+                <p className="text-lg text-secondary font-medium max-w-2xl leading-relaxed">
+                  Our team is currently establishing the foundational models and systems. Published research and whitepapers will be available in this section.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </div>
     </PageTransition>
   );
