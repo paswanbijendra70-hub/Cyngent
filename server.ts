@@ -1,11 +1,7 @@
 import express from 'express';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import fs from 'fs';
 import { createServer as createViteServer } from 'vite';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
@@ -23,7 +19,7 @@ async function startServer() {
       }
 
       // Extract base64 data
-      const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, "");
+      const base64Data = imageBase64.replace(/^data:image\/[a-zA-Z0-9+-]+;base64,/, "");
       
       // Save it directly to the public folder so it's permanent
       const publicFilePath = path.join(process.cwd(), 'public', 'download.webp');

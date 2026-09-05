@@ -16,6 +16,7 @@ export function AnimatedRoutes() {
   
   return (
     <AnimatePresence mode="wait">
+      {/* @ts-ignore - react-router v7 types missing key prop */}
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/research" element={<Research />} />

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { PageTransition } from '../components/PageTransition';
 import { Upload, Trash2, ShieldCheck, Image as ImageIcon } from 'lucide-react';
@@ -35,13 +35,18 @@ export function Admin() {
 
         const data = await res.json();
         
-        // Save the timestamp to force browser cache to bust
-        localStorage.setItem('cyngent_logo_timestamp', data.timestamp.toString());
+        try {
+          // Save the timestamp to force browser cache to bust
+          localStorage.setItem('cyngent_logo_timestamp', data.timestamp.toString());
+        } catch (e) {
+          console.warn('Could not save to localStorage (likely iframe sandbox restrictions)', e);
+        }
         window.dispatchEvent(new Event('logo-updated'));
         
         setStatus({ type: 'success', message: 'Logo updated successfully! Changes permanently applied globally.' });
         setTimeout(() => setStatus({ type: '', message: '' }), 4000);
       } catch (error) {
+        console.error("Upload error:", error);
         setStatus({ type: 'error', message: 'Error saving logo permanently to the server.' });
       }
     };
