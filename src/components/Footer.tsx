@@ -38,6 +38,7 @@ export function Footer() {
               <Link to="#" className="hover:text-primary transition-colors">Privacy</Link>
               <Link to="#" className="hover:text-primary transition-colors">Terms</Link>
               <Link to="#" className="hover:text-primary transition-colors">Security</Link>
+              <Link to="/admin" className="hover:text-accent transition-colors flex items-center gap-1 mt-4 text-accent/80">Admin Panel</Link>
             </div>
           </div>
 

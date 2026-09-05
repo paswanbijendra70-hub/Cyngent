@@ -3,12 +3,14 @@ import { motion } from 'motion/react';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTheme } from './ThemeProvider';
+import { useCustomLogo } from '../hooks/useCustomLogo';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { theme, setTheme } = useTheme();
+  const logoSrc = useCustomLogo();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,12 +37,16 @@ export function Navbar() {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-background/80 backdrop-blur-xl border-b border-border shadow-sm' : 'bg-transparent border-b border-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link to="/" className="text-xl font-display font-semibold tracking-tight flex items-center gap-3 text-primary hover:text-accent transition-colors" onClick={() => setIsOpen(false)}>
-          {/* Miniature logo representation */}
-          <div className="w-5 h-5 grid grid-cols-2 gap-[2px]">
-            <div className="bg-accent rounded-sm" />
-            <div className="border border-accent/40 rounded-sm" />
-            <div className="border border-accent/40 rounded-sm" />
-            <div className="bg-primary rounded-sm" />
+          <div className="w-7 h-7 flex items-center justify-center shrink-0">
+            <img 
+              src={logoSrc} 
+              alt="CYNGENT Logo" 
+              className="w-full h-full object-contain"
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = 'none';
+                (e.target as HTMLImageElement).parentElement!.innerHTML = '<div class="w-full h-full rounded-full bg-gradient-to-tr from-[#E85D04] to-[#F97316] shadow-sm"></div>';
+              }}
+            />
           </div>
           CYNGENT
         </Link>

@@ -9,6 +9,7 @@ import { Careers } from '../pages/Careers';
 import { Contact } from '../pages/Contact';
 import { Developers } from '../pages/Developers';
 import { NotFound } from '../pages/NotFound';
+import { Admin } from '../pages/Admin';
 
 export function AnimatedRoutes() {
   const location = useLocation();
@@ -24,6 +25,7 @@ export function AnimatedRoutes() {
         <Route path="/stories" element={<Stories />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>

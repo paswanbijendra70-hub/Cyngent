@@ -1,11 +1,12 @@
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'motion/react';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+import { useCustomLogo } from '../hooks/useCustomLogo';
 
 export function CyngentMark({ className = '' }: { className?: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const shouldReduceMotion = useReducedMotion();
+  const logoSrc = useCustomLogo();
 
   const springConfig = { damping: 40, stiffness: 100, mass: 0.5 };
   const springX = useSpring(mouseX, springConfig);
@@ -21,8 +22,8 @@ export function CyngentMark({ className = '' }: { className?: string }) {
 
     const handleMouseMove = (e: MouseEvent) => {
       const { innerWidth, innerHeight } = window;
-      const x = (e.clientX / innerWidth) * 2 - 1; // -1 to 1
-      const y = (e.clientY / innerHeight) * 2 - 1; // -1 to 1
+      const x = (e.clientX / innerWidth) * 2 - 1;
+      const y = (e.clientY / innerHeight) * 2 - 1;
       mouseX.set(x);
       mouseY.set(y);
     };
@@ -43,54 +44,57 @@ export function CyngentMark({ className = '' }: { className?: string }) {
 
   if (shouldReduceMotion) {
     return (
-      <div className={`w-16 h-16 grid grid-cols-2 gap-[6px] opacity-90 ${className}`}>
-        <div className="bg-accent rounded-[2px]" />
-        <div className="border border-primary/20 rounded-[2px]" />
-        <div className="border border-primary/20 rounded-[2px]" />
-        <div className="bg-primary rounded-[2px]" />
+      <div className={`relative flex items-center justify-center ${className}`}>
+        <img 
+          src={logoSrc} 
+          alt="CYNGENT Logo" 
+          className="w-full h-full object-contain drop-shadow-[0_20px_40px_rgba(232,93,4,0.3)]"
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = 'none';
+            (e.target as HTMLImageElement).parentElement!.innerHTML = `
+              <div class="w-full h-full rounded-full bg-gradient-to-tr from-[#E85D04] to-[#F97316] shadow-[0_0_80px_rgba(232,93,4,0.5)]"></div>
+            `;
+          }}
+        />
       </div>
     );
   }
 
   return (
     <div 
-      ref={containerRef}
       className={`relative flex items-center justify-center ${className}`}
       style={{ perspective: 1200 }}
     >
-      <motion.div className="w-full h-full relative" style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}>
-        {/* Base Depth Layer */}
+      <motion.div 
+        className="w-full h-full relative" 
+        style={{ rotateX, rotateY, x: moveX, y: moveY, transformStyle: 'preserve-3d' }}
+      >
+        {/* Subtle background glow */}
         <motion.div 
-          className="absolute inset-0 grid grid-cols-2 gap-[6px] opacity-20"
-          style={{ z: -20, x: useTransform(moveX, x => x * -1.5), y: useTransform(moveY, y => y * -1.5) }}
-        >
-          <div className="border border-secondary rounded-[2px]" />
-          <div className="border border-secondary rounded-[2px]" />
-          <div className="border border-secondary rounded-[2px]" />
-          <div className="border border-secondary rounded-[2px]" />
-        </motion.div>
+          className="absolute inset-0 bg-[#E85D04]/20 blur-[60px] rounded-full z-[-1]"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.4, 0.7, 0.4]
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
 
-        {/* Main Interface Layer */}
-        <motion.div 
-          className="absolute inset-0 grid grid-cols-2 gap-[6px] opacity-90"
-          style={{ z: 0 }}
-        >
-          <div className="bg-accent rounded-sm shadow-sm" />
-          <div className="border border-primary/10 bg-surface/50 backdrop-blur-sm rounded-sm" />
-          <div className="border border-primary/10 bg-surface/50 backdrop-blur-sm rounded-sm" />
-          <div className="bg-primary rounded-sm shadow-sm" />
-        </motion.div>
-        
-        {/* Floating Accent Layer */}
-        <motion.div 
-          className="absolute inset-0 grid grid-cols-2 gap-[6px] pointer-events-none"
-          style={{ z: 30, x: moveX, y: moveY }}
-        >
-          <div className="border border-accent/80 rounded-sm shadow-[0_4px_12px_rgba(234,88,12,0.2)]" />
-          <div className="bg-transparent" />
-          <div className="bg-transparent" />
-          <div className="border border-primary/60 rounded-sm shadow-[0_4px_12px_rgba(0,0,0,0.1)]" />
-        </motion.div>
+        {/* The main logo image */}
+        <img 
+          src={logoSrc} 
+          alt="CYNGENT Logo" 
+          className="w-full h-full object-contain drop-shadow-[0_20px_40px_rgba(232,93,4,0.35)]"
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = 'none';
+            (e.target as HTMLImageElement).parentElement!.innerHTML = `
+              <div class="w-full h-full rounded-full bg-gradient-to-tr from-[#E85D04] to-[#F97316] shadow-[0_0_80px_rgba(232,93,4,0.5)]"></div>
+            `;
+          }}
+        />
       </motion.div>
     </div>
   );
