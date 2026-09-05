@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react';
 
 export function useCustomLogo() {
-  const [logo, setLogo] = useState<string | null>(() => {
+  const [logo, setLogo] = useState<string>(() => {
     try {
-      return localStorage.getItem('cyngent_custom_logo');
+      const storedTimestamp = localStorage.getItem('cyngent_logo_timestamp');
+      return storedTimestamp ? `/download.webp?t=${storedTimestamp}` : '/download.webp';
     } catch {
-      return null;
+      return '/download.webp';
     }
   });
 
   useEffect(() => {
     const handleStorageChange = () => {
       try {
-        setLogo(localStorage.getItem('cyngent_custom_logo'));
+        const storedTimestamp = localStorage.getItem('cyngent_logo_timestamp');
+        setLogo(storedTimestamp ? `/download.webp?t=${storedTimestamp}` : '/download.webp');
       } catch {
         // Ignore
       }
@@ -31,15 +33,14 @@ export function useCustomLogo() {
 
   useEffect(() => {
     // Update the document favicon when the logo changes
-    const currentLogo = logo || '/download.webp';
     let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
     if (!link) {
       link = document.createElement('link');
       link.rel = 'icon';
       document.head.appendChild(link);
     }
-    link.href = currentLogo;
+    link.href = logo;
   }, [logo]);
 
-  return logo || '/download.webp';
+  return logo;
 }

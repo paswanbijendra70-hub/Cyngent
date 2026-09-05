@@ -20,15 +20,29 @@ export function Admin() {
     }
 
     const reader = new FileReader();
-    reader.onloadend = () => {
+    reader.onloadend = async () => {
       const base64String = reader.result as string;
       try {
-        localStorage.setItem('cyngent_custom_logo', base64String);
+        const res = await fetch('/api/upload-logo', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ imageBase64: base64String })
+        });
+
+        if (!res.ok) throw new Error('Failed to upload');
+
+        const data = await res.json();
+        
+        // Save the timestamp to force browser cache to bust
+        localStorage.setItem('cyngent_logo_timestamp', data.timestamp.toString());
         window.dispatchEvent(new Event('logo-updated'));
-        setStatus({ type: 'success', message: 'Logo updated successfully! Changes applied globally.' });
+        
+        setStatus({ type: 'success', message: 'Logo updated successfully! Changes permanently applied globally.' });
         setTimeout(() => setStatus({ type: '', message: '' }), 4000);
       } catch (error) {
-        setStatus({ type: 'error', message: 'Error saving logo. The file might be too large for local storage.' });
+        setStatus({ type: 'error', message: 'Error saving logo permanently to the server.' });
       }
     };
     reader.readAsDataURL(file);
@@ -36,9 +50,9 @@ export function Admin() {
 
   const handleReset = () => {
     try {
-      localStorage.removeItem('cyngent_custom_logo');
+      localStorage.removeItem('cyngent_logo_timestamp');
       window.dispatchEvent(new Event('logo-updated'));
-      setStatus({ type: 'success', message: 'Logo reset to default.' });
+      setStatus({ type: 'success', message: 'Logo cache cleared.' });
       setTimeout(() => setStatus({ type: '', message: '' }), 4000);
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
@@ -124,7 +138,7 @@ export function Admin() {
               <div className="flex items-start gap-3 p-4 bg-accent/5 border border-accent/20 rounded-2xl">
                 <ImageIcon size={20} className="text-accent shrink-0 mt-0.5" />
                 <p className="text-sm text-secondary font-medium">
-                  <strong>Note:</strong> Since this is a temporary admin panel, the logo is saved locally in your browser session. For permanent cloud storage, a backend integration will be required in the future.
+                  <strong>Note:</strong> The upload system has been upgraded. Images uploaded here are now permanently saved directly into the application's source code and will be visible to all users globally.
                 </p>
               </div>
             </div>
